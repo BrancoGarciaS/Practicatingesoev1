@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro Exitoso</title>
+</head>
+<body>
+<h2>Estudiante Registrado con Éxito</h2>
+
+<h3>Datos del Estudiante:</h3>
+<ul>
+  <li>Nombre: <span th:text="${student.name}"></span></li>
+  <li>Apellido: <span th:text="${student.last_name}"></span></li>
+  <li>Email: <span th:text="${student.email}"></span></li>
+  <li>RUT: <span th:text="${student.rut}"></span></li>
+  <li>Fecha de Nacimiento: <span th:text="${#dates.format(student.birthdate, 'dd-MM-yyyy')}"></span></li>
+  <li>Nombre de la Escuela: <span th:text="${student.school_name}"></span></li>
+
+  <!-- Agrega otros campos del estudiante aquí -->
+</ul>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Estudiante por Rut</title>
+</head>
+<body>
+<h2>Buscar Estudiante por Rut</h2>
+
+<form action="/get_by_rut" method="GET">
+
+    <label for="rut">RUT del Estudiante:</label>
+    <input type="text" id="rut" name="rut" required>
+    <button type="submit">Buscar</button>
+</form>
+
+<!-- Mostrar los resultados aquí -->
+<div th:if="${student}">
+    <h3>Datos del Estudiante:</h3>
+    <!--
+    <ul>
+        <li>Nombre: <span th:text="${student.name}"></span></li>
+        <li>Apellido: <span th:text="${student.last_name}"></span></li>
+        <li>Email: <span th:text="${student.email}"></span></li>
+
+    </ul>
+    -->
+</div>
+
+<!-- Manejar el caso en que no se encuentra ningún estudiante -->
+<div th:if="${not student}">
+    <p>No se encontró ningún estudiante con el RUT ingresado.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Cuotas</title>
+</head>
+<body>
+<h2>Lista de Cuotas</h2>
+<table>
+    <tr>
+        <th>ID de Cuota</th>
+        <th>Estado de Cuota</th>
+        <th>Monto</th>
+        <th>Fecha de Pago</th>
+    </tr>
+    <c:forEach var="cuota" items="${cuotas}">
+        <tr>
+            <td>${cuota.id_cuota}</td>
+            <td>${cuota.estado_cuota}</td>
+            <td>${cuota.monto}</td>
+            <td>${cuota.fecha_pago}</td>
+        </tr>
+    </c:forEach>
+</table>
+
+<a href="/">Volver a la página principal</a>
+</body>
+</html>
