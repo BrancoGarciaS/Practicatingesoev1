@@ -1,11 +1,13 @@
 package com.example.BrancoGarciaTingesoEvaluacion1.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +21,8 @@ public class StudentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id_Student; // atributo llave
-    @Column(unique = true, nullable = false)
+    //@Column(unique = true, nullable = false)
+    @Column(name = "rut", nullable = false)
     private String rut;
 
     @OneToMany(mappedBy = "id_Student")
@@ -38,8 +41,9 @@ public class StudentEntity {
     private Integer installments; // numero de cuotas (si es 0, significa que será pago al contado
     private Integer tariff; // arancel
     private Integer exams_mean; // promedio del estudiante
-
     private Integer senior_year; // año de egreso
+
+    private Double score; // puntaje
     //private int yearsSinceGraduation;
 
     /*
@@ -47,6 +51,12 @@ public class StudentEntity {
         this.id_Student = id_Student;
     } */
 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+    // Constructor al ser una entidad que va a ser vinculada tras una FK a otra
+    public StudentEntity(long id_Student){
+        this.id_Student = id_Student;
+    }
+    //public StudentEntity(){}
     /* */
     public Long getId_Student() {
         return id_Student;
@@ -169,7 +179,14 @@ public class StudentEntity {
 
     public void setCuotas(List<CuotaEntity> cuotas) {
         this.cuotas = cuotas;
+
+        /*
+        this.cuotas = new ArrayList<>(); // Crea una nueva lista para evitar referencias compartidas
+        for (CuotaEntity cuota : cuotas) {
+            this.cuotas.add(cuota);
+        }*/
     }
+
 
     public Integer getSenior_year() {
         return senior_year;
@@ -177,6 +194,14 @@ public class StudentEntity {
 
     public void setSenior_year(Integer senior_year) {
         this.senior_year = senior_year;
+    }
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
     }
 
     /* */

@@ -39,6 +39,9 @@ public class CalculoCuotas {
     }
 
     public Integer arancel_con_descuento(StudentEntity estudiante){
+        if(estudiante.getPayment_type() == 0){
+            return 1500000/2;
+        }
         Integer arancel = 1500000;
         arancel = arancel - descuento_TipoColegio(estudiante);
         arancel = arancel -descuento_AñosEgreso(estudiante);

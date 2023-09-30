@@ -167,4 +167,248 @@ public class Apuntesclases {
     màs limpio
      */
 
+    /*
+    Clase 26 septiembre:
+    - SLA: el sistema a desarrolllar debe ser 99.5% de SLA
+    - como llego a esto?
+    - se relaciona con la disponibilidad, uno de los aspectos de la SLA es la disponibilidad
+    - si te piden una disponibilidad del 99.5% que significa que al año la aplicación puede estar
+    caída 1.83 días (en el peor de los casos cayó 2 días), 10.98 horas al mes, 7.20 minutos al día
+    (ver estos datos en high abailability en wikipedia, están en una tabla percentage calculation)
+    - el 99.9% es mucho más complejo, al dia puede estar caida en 1.44 minutos
+
+    - en un friday no se puede caer la pagina en más 8.64 segundos, para ello se usa 99.99% con four nines
+    (cuatro nueves)
+    - quizas en el futuro de la carrera nos enfrentemos a 99.99% con cuatro nueves, esto depende de la
+    empresa a la que trabajemos y la importancia del proyecto
+    - Un SLA de 90% de un nueve
+    - SIEMPRE PREGUNTAR POR LA DISPONIBILIDAD (ES IMPORTANTE SI ES QUE NO TE LO MENCIONAN EN EL CONTRATO
+    RECORDARLO)
+    - Entre más 9, mejores pagos pero más dificultades (es muy peligroso estar en proyectos con SLA muy altos)
+    - Cuando desplieguemos una aplicación web, tira 3 commponentes: el servidor web, la aplicación web y la base
+    de datos
+    La capa del servidor web es una capa donde hay una pagina web estatica como la de la usach, no
+    hay html, javascript (se debe haber hecho con una herramienta), generalmente están de cara al usuario
+
+    Servidor de la aplicación: se conecta con la base de datos, y es anclado mediante enlace a la capa de
+    servidor web
+
+    La capa de servidor tiene disponibilidad de 90%, app server del 90& y db server 99% coomo sql
+    Dado que es un sistema lineal, la disponibilidad total sería
+
+    disponibilidad_Total = 0.9 * 0.9 * 0.99 = 0.8019
+    pero da 80.19% < 99.5%, que es menor al SLA
+    Construir software es más que hacer código
+
+    Para ello redundamos
+
+    Ponemos dos servidores web de 90% (web server), donde obtenemos más disponibilidad total
+
+    Ponemos más redundancia a las app server igual, y obtenemos más porcentaje con
+    3 web server, y 3 app server, logrando disponibilidad de 98.8%, pero
+    un servidor HP cuesta 5.000.000 de pesos, con 7 servidores sería 35.000.000
+
+    Hay que comprar más servidores para llegar a tener un SLA alto
+    Por eso es mejor tener en claro los gastos y presupuesto de la empresa para comprar servidores
+
+
+    Web server (90%) -> App server (90%) -> DB server (99%)
+
+    Y al replicar la base de datos lograríamos 99.8% pero se necesita más espacio y dinero
+
+    El balanzador de carga se encarga para distribuir las cargas (porcentajes)
+    ej: la aplicación 1 está con un 60% de carga, ya que tiene un mejor servidor
+    la aplicación 2 en cambio está con 40% de carga, ya que tiene un servidor más o menos
+
+    El balanceador de carga puede ser por hardware o software
+
+
+    flask -> para crear aplicaciones livianas
+
+    app1/Dockerfile (ver esta informacion en towardsdatascience.com/sample-load-balancing-solution-with-docker-and-nginx
+
+    usamos un balanceador de carga, donde un servidor por puertos distintos, vamos balanceando la carga
+
+    En el día de la evaluación explicar los porcentajes de carga, es importante
+    Y tambien explicar la cantidad de servicios
+
+    No necesitas mucha RAM, hay que tener cuidado con balanceador de carga, se puede realizar con 1 en
+    caso que el computador no soporte ni 2 ni 1
+
+    El balanceador de carga es el encargador de distribuir las tareas
+
+    Igual se desperdician recursos,
+    cuando hayan picos de uso
+
+    Donde voy a desplegar: en servidores fisicos, o tecnologias en contenedores?
+
+    Hoy debe hecharse manos en la nube, y el proovedor más grande ahora es en amazon (Aws)
+    Si quieres ir a la nube del proveedor es amazon.com/es/
+
+    Para desplegar la aplicación:
+    1er lugar -> amazon
+    3er lugar -> cloud compute engine google
+
+    Digital ocean da servicios en la nube: es más barato que amazon y compute engine
+
+    Uso de servicio en la nube (amazon)
+
+    - Nosotros queremos desplegar la aplicación en la nube
+    Capa gratuita de AWS -> se puede pagar con tarjeta de credito (no te cobra)
+
+    Buscar una tarjeta de crédito e ingresar a amazon precios->capa gratuita de AWS
+
+    Creamos nueva estimacion en amazon
+    Usamos servicio: buscar servicio: ec2
+    configuramos amazon EC2
+
+    Descripcion: Server 1
+    Region: Sao Paulo, (pues es la región más cercana a santiago)
+
+    Tenencia: instancias compartidas (para que otra persona pueda usar ese servidor, osea compartirlo)
+              pero al usar instancias dedicadas que es propio, es mucho más caro (no recomendable)
+
+    Sistema operativo: Linux (windows es más caro)
+
+    Crgas de trabajo: uso constante
+
+    Numero de instancias: 1
+
+    t4g.nano    categoria de instancia: general purpose    cpu 2       memoria: 0.5 gib
+
+    usar t4g.small
+
+
+    La nube no es cara, pero esto es para el server, hay que ver la base de datos y el resto
+
+    - DigitalOcean ->
+
+    - Empezar a probar servidores
+    y subir la aplicación ahí
+    debe estar en la nube
+
+    docker compose app -> para bajar y levantar todo
+    -> el profe pedirá bajar todo y debes levantarlo
+    el enlace que le pases debe funcionar
+
+    Configurar amazon ec2
+    Usar so linux
+    cargas de trabajo: uso constante
+    número de instancias: 3
+
+
+    -> infra as code -> terraform: para crear infraestructura en la nube
+    -> asi como escribes la infraestructura de dockerfile
+    -> corres el script y todo está configurado en amazon
+
+    -> terraform:
+    AWS -> build
+
+    crea una carpeta y script, que es similar al dockerfile
+
+    terraform{
+
+    }
+
+    provider "aws"{
+             region = "sao paulo"
+    }
+    resource "aws_instance" "app_server"{
+        ami
+        instance_type
+
+    }
+
+    inicializamos el script
+
+    terraform init
+
+
+    terraform apply (para correr el servidor)
+
+
+    debemos escribir el script en terraform
+    y debemos explicar como crear el servidor
+
+    --------------- clase 27 de septiembre ---------------
+
+    DevOps -> conjunto de buenas prácticas, para reducir el tiempo entre hacer un commit
+    de un cambio de un sistema y que ese cambio quede automaticamente en producción, generando
+    cálidad
+
+    3 desarrolladores hacen cada uno 2 historias de usuario y cada vez que hacen
+    cambios se almacenan en el repositorio central de github
+
+    Para ello necesitamos un servidor especializado, y en ese servidor se debe instalar
+    jenkings para hacer integración continua, y este tiene la capacidad de que cuando se de
+    cuenta que en el repositorio central llega codigo nuevo (Github), y empieza a tomar
+    configuraciones que tu haz realizado, empieza a ensamblar, corre pruebas unitarias y muestra
+    resultados de cobertura
+
+    Hasta ayer todo es manual, escribir comandos por linea de comandos, y esto cansa al hacerlo
+    continuamente, por eso jenkins se encarga de automatizar este proceso
+
+    Primero se debe tener un repositorio de código fuente
+    (git flow sirve para crear brunchs y sirve más para el trabajo en equipo)
+
+    en la imagen de desarrolllo github jenkings spring, la linea cafe es pipeline
+
+    Producción -> cuando la página ya funciona para el uso de clientes
+               -> cuando todo está funcionando
+    Staging -> espejo de producción, copia casi fiel de producción
+
+    Si logro despegar en staging, debo ajustar errores, y luego al solucionarlos y subirlo a producción
+    La probabilidad de cometer errores es baja
+
+    El jenkings te pregunta hasta donde quieres llegar (hasta desarrollo, staging o producción)
+    Con el pipeline quiero llegar al
+
+
+    En el script de jenkings escribimos el script, en el describimos las etapas que queremos tener
+
+    En ella debemos escribir el build de la aplicación
+
+
+    En la etapa de despliegue bajamos la imagen relacionada
+    Tratar de hacer los proyectos automatizados, para ello sirve jenkins
+
+    Ingenieros de box -> especialistas en hacer pipelines
+
+
+
+
+
+
+    DevOps -> logra hacer integración continua, integración llega hasta hacer los tests manualmente
+
+    Si logramos integración continua en un proyecto, tenemos que lograr entrega continua, luego
+    despliegue continuo, luego la compañía tiene despliegue continuo
+
+    La integración continua no tira nada en producción llega hasta la producción
+
+    El paso a producción se hace manualmente
+
+    En la evaluación se pide hacer un pipeline, y dejar la imagen lista en el docker
+
+    En el docker quedaría la imagen, y desde allí bajan manualmente la imagen
+
+    Estaríamos haciendo despliegue continuo
+
+    // ir a jenkins.io y descargar
+    jenkins.io/doc/book/pipeline
+
+    vamos a declarative pipeline fundamentals
+
+    pipeline{
+        agent any
+        stages {
+            stage
+        }
+    }
+
+    Que jankings haga automaticamente el trabajo sin  boton al hacer un commit
+    eso se solicita
+
+
+     */
 }

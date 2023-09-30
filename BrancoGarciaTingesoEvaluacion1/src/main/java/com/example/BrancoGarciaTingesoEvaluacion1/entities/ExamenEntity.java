@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -18,7 +20,8 @@ public class ExamenEntity {
     @Column(unique = true, nullable = false)
     private Long id_examen; // atributo llave
     private String rut; // atributo que conecta con estudiante
-    private Date fecha_examen;
+    private LocalDate fecha_examen;
+    private String fecha;
     private float puntaje_examen;
 
     public Long getId_examen() {
@@ -37,11 +40,11 @@ public class ExamenEntity {
         this.rut = rut;
     }
 
-    public Date getFecha_examen() {
+    public LocalDate getFecha_examen() {
         return fecha_examen;
     }
 
-    public void setFecha_examen(Date fecha_examen) {
+    public void setFecha_examen(LocalDate fecha_examen) {
         this.fecha_examen = fecha_examen;
     }
 
@@ -51,5 +54,13 @@ public class ExamenEntity {
 
     public void setPuntaje_examen(float puntaje_examen) {
         this.puntaje_examen = puntaje_examen;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 }

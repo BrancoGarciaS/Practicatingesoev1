@@ -1,10 +1,12 @@
 package com.example.BrancoGarciaTingesoEvaluacion1.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -20,7 +22,15 @@ public class CuotaEntity {
 
     private Integer estado_cuota; // 0 pendiente, 1 pagado
     private float monto;
+
+    private LocalDate fecha_vencimiento;
+    private LocalDate fecha_inicio;
     private Date fecha_pago;
+
+    @Column(name = "aux")
+    private long aux;
+
+    private String rut_cuota;
 
     @ManyToOne
     @JoinColumn(name = "id_Student")
@@ -62,13 +72,24 @@ public class CuotaEntity {
         return id_Student;
     }
 
-    public void setEstudiante(StudentEntity estudiante) {
-        this.id_Student = estudiante;
+    public void setEstudiante(Long id_student) {
+        this.id_Student = new StudentEntity(id_student);
+        this.aux = id_student;
     }
 
-    //
+    public LocalDate getFecha_vencimiento() {
+        return fecha_vencimiento;
+    }
 
-    //public void setEstudiante(Long id_estudiante) {
-    //    this.estudiante = new StudentEntity(id_estudiante);
-    //}*/
+    public void setFecha_vencimiento(LocalDate fecha_vencimiento) {
+        this.fecha_vencimiento = fecha_vencimiento;
+    }
+
+    public LocalDate getFecha_inicio() {
+        return fecha_inicio;
+    }
+
+    public void setFecha_inicio(LocalDate fecha_inicio) {
+        this.fecha_inicio = fecha_inicio;
+    }
 }
