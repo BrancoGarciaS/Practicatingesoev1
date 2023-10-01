@@ -30,6 +30,9 @@ public class ExamenService {
     @Autowired
     CuotaRepository cuotaRepository;
 
+    @Autowired
+    CalculoCuotas calculoCuotas;
+
     public ExamenEntity saveData(ExamenEntity examen){
         return examenRepository.save(examen);
     }
@@ -128,12 +131,14 @@ public class ExamenService {
                 if(s.getPayment_type() == 1 || !(s.getCuotas().isEmpty())){
                     ArrayList<CuotaEntity> cuotas = cuotaRepository.findByRut_cuota(rut);
                     for(CuotaEntity cuota : cuotas){
-                        if(cuota.getEstado_cuota() == 0){
-
+                        if(cuota.getEstado_cuota() == 0){ // si la cuota está pendiente
+                            float m = calculoCuotas.descuentoPuntaje(cuota, promedio);
+                            cuota.setMonto(m);
+                            cuotaRepository.save(cuota);
+                            System.out.print("Descuento aplicado\n");
                         }
                     }
                 }
-
             }
             else{
                 System.out.print("Rut no encontrado:" + rut);

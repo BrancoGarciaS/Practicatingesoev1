@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -120,7 +121,7 @@ public class CuotaController {
         // Realizar el procesamiento de pago aquí
         // Esto podría incluir la actualización del estado de la cuota a "pagado"
         cuota.setEstado_cuota(1); // 1 para pagado
-        cuota.setFecha_pago(new Date()); // Establecer la fecha de pago actual, por ejemplo
+        cuota.setFecha_pago(LocalDate.now()); // Establecer la fecha de pago actual, por ejemplo
 
         // Guardar la cuota actualizada en la base de datos
         cuotaService.saveData(cuota);

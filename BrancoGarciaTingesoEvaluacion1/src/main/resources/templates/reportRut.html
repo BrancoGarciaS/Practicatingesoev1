@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Reportes del estudiante</title>
+</head>
+<body>
+    <h1>Generar reporte por Rut</h1>
+    <form action="/report" method="post">
+        <label for="rut_report">Ingresa el Rut:</label>
+        <input type="text" id="rut_report" name="rut_report" required>
+        <button type="submit">Buscar Cuotas</button>
+    </form>
+
+    <div th:if="${report}">
+        <h1>Reporte del estudiante: </h1>
+        <p>Nombre: <span th:text="${report.name_student}"></span></p>
+        <p>Apellido: <span th:text="${report.last_name}"></span></p>
+        <p>Número de examenes: <span th:text="${report.num_exams}"></span></p>
+        <p>Promedio de pruebas: <span th:text="${report.mean_score}"></span></p>
+        <p>Monto total original de arancel a pagar: <span th:text="${report.total_tariff}"></span></p>
+        <p>Monto a pagar (con interés y descuentos): <span th:text="${report.interes_tariff}"></span></p>
+        <p>Tipo de pago:
+            <span th:switch="${report.payment_type}">
+              <span th:case="0">Pago al contado</span>
+              <span th:case="1">Pago en cuotas</span>
+            </span>
+        </p>
+        <p>Número de cuotas: <span th:text="${report.num_installments}"></span></p>
+        <p>Número de cuotas pagadas: <span th:text="${report.num_installments_paid}"></span></p>
+        <p>Monto total pagado: <span th:text="${report.tariff_paid}"></span></p>
+        <p>Fecha de último pago: <span th:text="${report.last_payment}"></span></p>
+        <p>Saldo por pagar: <span th:text="${report.tariff_to_pay}"></span></p>
+        <p>Número de cuotas con atrasos: <span th:text="${report.late_installments}"></span></p>
+    </div>
+</body>
+</html>

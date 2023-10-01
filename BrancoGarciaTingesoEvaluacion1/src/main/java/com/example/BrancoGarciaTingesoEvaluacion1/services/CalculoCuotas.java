@@ -76,11 +76,22 @@ public class CalculoCuotas {
         }
         return 4;  // en caso de venir de colegio privado
     }
-    /*
+
     public float descuentoPuntaje(CuotaEntity cuota, Double exam_score){
+        float m = cuota.getMonto();
         if(exam_score <= 1000 && exam_score >= 950){
-            float
+            // como el descuento es del 10% se retorna el 90% del monto de la cuota
+            return (float) (m * 0.9);
         }
-    }*/
+        else if(exam_score < 950 && exam_score >= 900){
+            // como el descuento es del 5% se retorna el 95% del monto de la cuota
+            return (float) (m * 0.95);
+        }
+        else if(exam_score < 900 && exam_score >= 850){
+            // como el descuento es del 2% se retorna el 98% del monto de la cuota
+            return (float) (m * 0.98);
+        }
+        return m;
+    }
 
 }

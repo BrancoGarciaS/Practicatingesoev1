@@ -4,8 +4,10 @@ import com.example.BrancoGarciaTingesoEvaluacion1.entities.CuotaEntity;
 import com.example.BrancoGarciaTingesoEvaluacion1.entities.StudentEntity;
 import com.example.BrancoGarciaTingesoEvaluacion1.repositories.CuotaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,9 +42,35 @@ public class CuotaService {
         if (optionalCuota.isPresent()) {
             CuotaEntity cuota = optionalCuota.get();
             cuota.setEstado_cuota(1); // Cambia el estado de pendiente a pagado
-            cuota.setFecha_pago(new Date()); // Establece la fecha de pago actual
+            cuota.setFecha_pago(LocalDate.now()); // Establece la fecha de pago actual
             cuotaRepository.save(cuota); // Guarda la cuota actualizada
         }
+    }
+
+    // para ver si la cuota esta atrasada
+    public boolean isLate(CuotaEntity inst){
+        //newData.setFecha_examen(LocalDate.now());
+
+        // en el caso que se haya pagado la cuota
+        LocalDate due_date = inst.getFecha_vencimiento();
+        if(inst.getEstado_cuota() == 1){
+            LocalDate pay_date = inst.getFecha_pago();
+            // si la fecha de vencimiento de la cuota
+            // es anterior a la fecha de pago, está atrasada
+            if(due_date.isBefore(pay_date)){
+                return true;
+            }
+        }
+        // en caso que la cuota aun no haya sido pagada
+        // y actualmente se ha sobrepasado la fecha de vencimiento
+        else{
+            // si la cuota tiene una fecha de vencimiento
+            // que es anterior a la fecha actual
+            if(due_date.isBefore(LocalDate.now())){
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -69,6 +97,10 @@ public class CuotaService {
     public ArrayList<CuotaEntity> getCuotasByRut(CuotaEntity installment){
         ArrayList<CuotaEntity> installments_list = cuotaRepository.findByRut_cuota(installment.getRut_cuota());
         return installments_list;
+    }
+
+    public void verAtrasos(String rut){
+
     }
 
 }

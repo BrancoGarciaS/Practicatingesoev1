@@ -23,7 +23,7 @@ public class CuotaEntity {
 
     private LocalDate fecha_vencimiento;
     private LocalDate fecha_inicio;
-    private Date fecha_pago;
+    private LocalDate fecha_pago;
 
     @Column(name = "aux")
     private long aux;
@@ -58,11 +58,11 @@ public class CuotaEntity {
         this.monto = monto;
     }
 
-    public Date getFecha_pago() {
+    public LocalDate getFecha_pago() {
         return fecha_pago;
     }
 
-    public void setFecha_pago(Date fecha_pago) {
+    public void setFecha_pago(LocalDate fecha_pago) {
         this.fecha_pago = fecha_pago;
     }
 
