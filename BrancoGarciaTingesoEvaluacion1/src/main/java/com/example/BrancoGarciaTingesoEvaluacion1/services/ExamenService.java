@@ -1,16 +1,14 @@
 package com.example.BrancoGarciaTingesoEvaluacion1.services;
-
 import com.example.BrancoGarciaTingesoEvaluacion1.entities.CuotaEntity;
 import com.example.BrancoGarciaTingesoEvaluacion1.entities.ExamenEntity;
 import com.example.BrancoGarciaTingesoEvaluacion1.entities.StudentEntity;
+import com.example.BrancoGarciaTingesoEvaluacion1.repositories.CuotaRepository;
 import com.example.BrancoGarciaTingesoEvaluacion1.repositories.ExamenRepository;
 import com.example.BrancoGarciaTingesoEvaluacion1.repositories.StudentRepository;
 import lombok.Generated;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,7 +19,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 @Service
 public class ExamenService {
@@ -29,6 +26,9 @@ public class ExamenService {
     ExamenRepository examenRepository;
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    CuotaRepository cuotaRepository;
 
     public ExamenEntity saveData(ExamenEntity examen){
         return examenRepository.save(examen);
@@ -115,21 +115,30 @@ public class ExamenService {
             // por cada fila de la consulta
             String rut = (String) result[0];
             Double promedio = (Double) result[1];
-            Integer num_exams = (Integer) result[0];
+            Long num_exams = (Long) result[2];
             // obtengo el estudiante por el rut
             Optional<StudentEntity> student_rut = studentRepository.getStudentByRut(rut);
             if(student_rut.isPresent()){
-                student_rut.get().setScore(promedio);
-                Integer n = num_exams + student_rut.get().getNum_exams();
-                student_rut.get().setNum_exams(n);
+                System.out.print("Rut encontrado:" + rut);
+                StudentEntity s = student_rut.get();
+                s.setScore(promedio);
+                Long n = num_exams + s.getNum_exams();
+                s.setNum_exams(n);
+                studentRepository.save(s);
+                if(s.getPayment_type() == 1 || !(s.getCuotas().isEmpty())){
+                    ArrayList<CuotaEntity> cuotas = cuotaRepository.findByRut_cuota(rut);
+                    for(CuotaEntity cuota : cuotas){
+                        if(cuota.getEstado_cuota() == 0){
+
+                        }
+                    }
+                }
+
+            }
+            else{
+                System.out.print("Rut no encontrado:" + rut);
             }
         }
-
-
     }
-    /*
-    public ArrayList<ExamenEntity> meanRut(){
-        return examenRepository.groupMean();
-    }*/
 
 }

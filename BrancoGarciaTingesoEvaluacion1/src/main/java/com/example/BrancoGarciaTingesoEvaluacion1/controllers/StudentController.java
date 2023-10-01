@@ -85,7 +85,7 @@ public class StudentController {
         student.setSenior_year(senior_year);
         student.setSchool_name(schoolName);
         student.setSchool_type(schoolType);
-        student.setNum_exams(0); // al principio tendría 0 examenes rendidos
+        student.setNum_exams(0L); // al principio tendría 0 examenes rendidos
 
         if(installments > 0){
             student.setPayment_type(1); // pago en cuotas
@@ -157,8 +157,6 @@ public class StudentController {
         return studentService.saveStudents(student);
     }
 
-
-
     // Para eliminar los datos de un estudiante (por id)
     @DeleteMapping("/delete_student/{id}")
     @ResponseBody
@@ -186,7 +184,6 @@ public class StudentController {
         modelAndView.addObject("student", s);
         modelAndView.addObject("cuotas", c);
         return modelAndView;
-        //return "search_rut";
     }
 
 }

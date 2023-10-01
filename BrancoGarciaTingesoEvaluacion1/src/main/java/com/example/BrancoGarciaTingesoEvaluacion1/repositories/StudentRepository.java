@@ -17,9 +17,5 @@ public interface StudentRepository extends CrudRepository<StudentEntity, Long> {
     Optional<StudentEntity> findByRut(String rut);
     @Query("SELECT s FROM StudentEntity s WHERE s.rut = :rut")
     Optional<StudentEntity> findByRutQuery(@Param("rut") String rut);
-
     Optional<StudentEntity> getStudentByRut(String rut);
-
-
-
 }

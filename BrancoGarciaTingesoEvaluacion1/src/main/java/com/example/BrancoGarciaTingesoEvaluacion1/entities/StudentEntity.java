@@ -36,7 +36,7 @@ public class StudentEntity {
     private String school_name; // nombre de la escuela
     /* */
     private Long school_type;
-    private Integer num_exams;
+    private Long num_exams;
     private Integer payment_type;
     private Integer installments; // numero de cuotas (si es 0, significa que será pago al contado
     private Integer tariff; // arancel
@@ -123,11 +123,11 @@ public class StudentEntity {
         this.school_type = school_type;
     }
 
-    public Integer getNum_exams() {
+    public Long getNum_exams() {
         return num_exams;
     }
 
-    public void setNum_exams(Integer num_exams) {
+    public void setNum_exams(Long num_exams) {
         this.num_exams = num_exams;
     }
 

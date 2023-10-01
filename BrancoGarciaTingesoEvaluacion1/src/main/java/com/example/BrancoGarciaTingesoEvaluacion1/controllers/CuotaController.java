@@ -70,7 +70,7 @@ public class CuotaController {
     // http://localhost:8000/cuota/cuotasPorRut
 
 
-    /*
+
     @PostMapping("/lascuotasRut")
     @ResponseBody
     public ModelAndView saveStudent(Model model, @RequestParam("rut_cuota") String rut_cuota) {
@@ -83,7 +83,7 @@ public class CuotaController {
         modelAndView.addObject("cuotas", c);
         return modelAndView;
         //return "search_rut";
-    }*/
+    }
 
     // funciona
     @GetMapping("/search_by_rut")

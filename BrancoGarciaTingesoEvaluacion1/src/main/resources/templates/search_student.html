@@ -12,21 +12,23 @@
         <button type="submit">Buscar Estudiante</button>
     </form>
 
-    <p>Nombre: <span th:text="${student.name}"></span></p>
-    <p>Apellido: <span th:text="${student.last_name}"></span></p>
-    <p>Rut: <span th:text="${student.rut}"></span></p>
+    <div th:if="${student}">
+        <h1>Datos del estudiante: </h1>
+        <p>Nombre: <span th:text="${student.name}"></span></p>
+        <p>Apellido: <span th:text="${student.last_name}"></span></p>
+        <p>Rut: <span th:text="${student.rut}"></span></p>
 
-    <p>Tipo de pago:
-        <span th:switch="${student.payment_type}">
-          <span th:case="0">Pago al contado</span>
-          <span th:case="1">Pago en cuotas</span>
-        </span>
-    </p>
-    <p>Número de cuotas: <span th:text="${student.installments}"></span></p>
-    <p>Arancel (con descuento): <span th:text="${student.tariff}"></span></p>
-    <p>Año de egreso: <span th:text="${student.senior_year}"></span></p>
-    <p>Puntaje: <span th:text="${student.score}"></span></p>
-    <p>Número de examenes: <span th:text="${student.num_exams}"></span></p>
-
+        <p>Tipo de pago:
+            <span th:switch="${student.payment_type}">
+              <span th:case="0">Pago al contado</span>
+              <span th:case="1">Pago en cuotas</span>
+            </span>
+        </p>
+        <p>Número de cuotas: <span th:text="${student.installments}"></span></p>
+        <p>Arancel (con descuento): <span th:text="${student.tariff}"></span></p>
+        <p>Año de egreso: <span th:text="${student.senior_year}"></span></p>
+        <p>Puntaje: <span th:text="${student.score}"></span></p>
+        <p>Número de examenes: <span th:text="${student.num_exams}"></span></p>
+    </div>
 </body>
 </html>

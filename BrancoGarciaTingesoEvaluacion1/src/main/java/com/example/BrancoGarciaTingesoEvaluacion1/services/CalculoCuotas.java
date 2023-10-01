@@ -1,5 +1,6 @@
 package com.example.BrancoGarciaTingesoEvaluacion1.services;
 
+import com.example.BrancoGarciaTingesoEvaluacion1.entities.CuotaEntity;
 import com.example.BrancoGarciaTingesoEvaluacion1.entities.StudentEntity;
 import org.springframework.stereotype.Service;
 
@@ -75,4 +76,11 @@ public class CalculoCuotas {
         }
         return 4;  // en caso de venir de colegio privado
     }
+    /*
+    public float descuentoPuntaje(CuotaEntity cuota, Double exam_score){
+        if(exam_score <= 1000 && exam_score >= 950){
+            float
+        }
+    }*/
+
 }
